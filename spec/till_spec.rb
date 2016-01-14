@@ -29,8 +29,15 @@ describe Till do
 
     context '#add_name_to_order' do
       it 'assigns a customer\'s name to the order' do
-        expect(order).to receive(:set_customer_name).with("Bob")
-        subject.add_name_to_order("Bob")
+        expect(order).to receive(:set_customer_name).with('Bob')
+        subject.add_name_to_order('Bob')
+      end
+    end
+
+    context '#add_item_to_order' do
+      it 'raises error if item does not exist in the menu' do
+        msg = 'Invalid item: "beer" does not exist on the menu'
+        expect { subject.add_item_to_order('beer') }.to raise_error(msg)
       end
     end
   end
