@@ -5,12 +5,8 @@ class Till
   attr_reader :menu
 
   def initialize(order_klass)
-    @order_klass = order_klass
+    @order = order_klass.new
     @menu = JSON.parse(File.read('hipstercoffee.json'))
-  end
-
-  def start_order
-    @order = @order_klass.new
   end
 
   def add_name_to_order(name)
