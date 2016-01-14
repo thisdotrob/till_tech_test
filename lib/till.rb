@@ -1,9 +1,12 @@
-class Till
+require 'json'
 
+class Till
   attr_reader :order
+  attr_reader :menu
 
   def initialize(order_klass)
     @order_klass = order_klass
+    @menu = JSON.parse(File.read('hipstercoffee.json'))
   end
 
   def start_order

@@ -9,10 +9,14 @@ describe Till do
     it 'is initialized with no order' do
       expect(subject.order).to be_nil
     end
+
+    it 'is initialized with a menu read in from .json file' do
+      expected_menu = JSON.parse(File.read('hipstercoffee.json'))
+      expect(subject.menu).to eq(expected_menu)
+    end
   end
 
   describe 'Creating an order' do
-
     before do
       subject.start_order
     end
@@ -30,7 +34,5 @@ describe Till do
       end
     end
   end
-
-
 
 end
