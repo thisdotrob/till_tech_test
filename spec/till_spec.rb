@@ -3,8 +3,10 @@ require 'till'
 describe Till do
   let(:order){ double('order') }
   let(:order_klass){ double('order_klass', new: order) }
+  let(:receipt){ double('receipt') }
+  let(:receipt_klass){ double('receipt_klass', new: receipt) }
   let(:mock_menu){ JSON.parse(File.read('spec/testmenu.json')) }
-  subject { Till.new(order_klass, 'spec/testmenu.json') }
+  subject { Till.new(order_klass, receipt_klass, 'spec/testmenu.json') }
 
   context '#initialize' do
     it 'starts an order' do
@@ -38,23 +40,7 @@ describe Till do
   end
 
   describe 'Getting a receipt' do
-    context '#receipt' do
-      it 'returns a json string receipt in the correct format' do
-        allow(order).to receive(:set_customer_name)
-        allow(order).to receive(:add_item)
-        subject.add_name_to_order('Basil')
-        subject.add_item_to_order('Tea')
-        expected_receipt = {
-          name: 'Basil',
-          items: [{ name: 'Tea', quantity: '1', total: '3.65' }],
-          totals: { after_tax: '3.97', tax: '0.32' }
-        }
-        expected_json = JSON.generate(expected_receipt)
-        allow(order).to receive(:items).and_return({Tea: 1})
-        allow(order).to receive(:customer_name).and_return('Basil')
-        expect(subject.receipt).to eq(expected_json)
-      end
-    end
+
   end
 
 end

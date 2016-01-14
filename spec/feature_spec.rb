@@ -1,9 +1,10 @@
 require 'till'
 require 'order'
+require 'receipt'
 
 describe 'Feature' do
   let(:mock_menu){ JSON.parse(File.read('spec/testmenu.json')) }
-  subject { Till.new(Order, 'spec/testmenu.json') }
+  subject { Till.new(Order, Receipt, 'spec/testmenu.json') }
 
   context 'till startup' do
     it 'starts with an empty order and a menu read from the .json' do
