@@ -16,6 +16,7 @@ class Till
   def add_item_to_order(item)
     invalid_item_msg = "Invalid item: \"#{item}\" does not exist on the menu"
     raise invalid_item_msg unless valid_items.include?(item)
+    @order.add_item(item)
   end
 
   private

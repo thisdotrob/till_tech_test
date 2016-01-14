@@ -3,7 +3,7 @@ require 'till'
 describe Till do
   let(:order){ double('order') }
   let(:order_klass){ double('order_klass', new: order) }
-  let(:expected_menu){ JSON.parse(File.read('spec/testmenu.json')) }
+  let(:mock_menu){ JSON.parse(File.read('spec/testmenu.json')) }
   subject { Till.new(order_klass, 'spec/testmenu.json') }
 
   context '#initialize' do
@@ -12,7 +12,7 @@ describe Till do
     end
 
     it 'reads in the menu from .json file' do
-      expect(subject.menu).to eq(expected_menu)
+      expect(subject.menu).to eq(mock_menu)
     end
   end
 
@@ -28,6 +28,13 @@ describe Till do
       it 'raises error if item does not exist in the menu' do
         msg = 'Invalid item: "beer" does not exist on the menu'
         expect { subject.add_item_to_order('beer') }.to raise_error(msg)
+      end
+
+      it 'adds a valid item to the order' do
+        valid_items = mock_menu[0]['prices'][0].keys
+        selected_item = valid_items.first
+        expect(order).to receive(:add_item).with(selected_item)
+        subject.add_item_to_order(selected_item)
       end
     end
   end
