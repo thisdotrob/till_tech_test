@@ -10,4 +10,11 @@ describe Till do
     end
   end
 
+  context '#start_order' do
+    it 'starts an order' do
+      subject.start_order
+      expect(subject.order).to_not be_nil
+    end
+  end
+
 end

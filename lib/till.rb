@@ -2,8 +2,8 @@ class Till
 
   attr_reader :order
 
-  def initialize
+  def start_order
+    @order = []
   end
-
 
 end
