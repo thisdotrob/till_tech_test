@@ -1,8 +1,9 @@
 require 'till'
 
 describe Till do
-
-  subject { Till.new }
+  let(:order){ double('order') }
+  let(:order_klass){ double('order_klass', new: order) }
+  subject { Till.new(order_klass) }
 
   context '#initialize' do
     it 'is initialized with no order' do
@@ -10,11 +11,26 @@ describe Till do
     end
   end
 
-  context '#start_order' do
-    it 'starts an order' do
+  describe 'Creating an order' do
+
+    before do
       subject.start_order
-      expect(subject.order).to_not be_nil
+    end
+
+    context '#start_order' do
+      it 'starts an order' do
+        expect(subject.order).to eq(order)
+      end
+    end
+
+    context '#add_name_to_order' do
+      it 'assigns a customer\'s name to the order' do
+        expect(order).to receive(:set_customer_name).with("Bob")
+        subject.add_name_to_order("Bob")
+      end
     end
   end
+
+
 
 end
