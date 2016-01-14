@@ -1,7 +1,15 @@
-Till tech test
-==============
+# Till tech test
 
-*Instructions*: Please fork this repo and submit a pull request once you've finished. Then prepare for code review!
+## User stories
+- As a Hipster Barista I would like to be able to open a new order.
+- As a Hipster Barista I would like to be able to assign a customer's name to an order.
+- As a Hipster Barista I would like to add items with a quantity to an order.
+- As a Customer I would like to see the ordered items, quantities and line prices on my receipt.
+- As a Customer I would like to see the total amount of tax I have paid on my receipt.
+- As a Customer I would like to see the total order value on my receipt.
+
+## Instructions
+Please fork this repo and submit a pull request once you've finished. Then prepare for code review!
 
 ![a till](/images/till.jpg)
 
@@ -18,7 +26,7 @@ This is what a sample receipt looks like:
 Version 1
 ---------
 
-Implement a system that contains the business logic to produce receipts similar to this, based on a `json` price list and test orders. A sample `.json` file has been provided with the list of products sold at this particular coffee shop. 
+Implement a system that contains the business logic to produce receipts similar to this, based on a `json` price list and test orders. A sample `.json` file has been provided with the list of products sold at this particular coffee shop.
 
 Here are some sample orders you can try - whether you use this information is up to you:
 
