@@ -31,10 +31,28 @@ describe Till do
       end
 
       it 'adds a valid item to the order' do
-        valid_items = mock_menu[0]['prices'][0].keys
-        selected_item = valid_items.first
-        expect(order).to receive(:add_item).with(selected_item)
-        subject.add_item_to_order(selected_item)
+        expect(order).to receive(:add_item).with('Cappucino')
+        subject.add_item_to_order('Cappucino')
+      end
+    end
+  end
+
+  describe 'Getting a receipt' do
+    context '#receipt' do
+      it 'returns a json string receipt in the correct format' do
+        allow(order).to receive(:set_customer_name)
+        allow(order).to receive(:add_item)
+        subject.add_name_to_order('Basil')
+        subject.add_item_to_order('Tea')
+        expected_receipt = {
+          name: 'Basil',
+          items: [{ name: 'Tea', quantity: '1', total: '3.65' }],
+          totals: { after_tax: '3.97', tax: '0.32' }
+        }
+        expected_json = JSON.generate(expected_receipt)
+        allow(order).to receive(:items).and_return({Tea: 1})
+        allow(order).to receive(:customer_name).and_return('Basil')
+        expect(subject.receipt).to eq(expected_json)
       end
     end
   end

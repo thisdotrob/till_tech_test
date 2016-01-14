@@ -14,15 +14,19 @@ describe 'Feature' do
 
   context 'placing an order' do
     it 'returns a receipt in the correct json string format' do
-      expected_items = [
-        { name: 'Cafe Latte', quantity: 5, total: 23.75 },
-        { name: 'Tiramisu', quantity: 1, total: 11.4 }
-      ]
-      expected_receipt = JSON.generate({ name: 'Bob', items: expected_items })
+      expected_receipt = {
+        name: 'Bob',
+        items: [
+          { name: 'Tiramisu', quantity: '1', total: '11.4' },
+          { name: 'Cafe Latte', quantity: '5', total: '23.75' }
+        ],
+        totals: { after_tax: '38.19', tax: '3.04' }
+      }
+      expected_json = JSON.generate(expected_receipt)
       subject.add_name_to_order('Bob')
       subject.add_item_to_order('Tiramisu')
       5.times { subject.add_item_to_order('Cafe Latte') }
-      expect(subject.receipt).to eq(expected_receipt)
+      expect(subject.receipt).to eq(expected_json)
     end
   end
 
