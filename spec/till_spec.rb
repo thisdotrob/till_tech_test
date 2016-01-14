@@ -3,7 +3,8 @@ require 'till'
 describe Till do
   let(:order){ double('order') }
   let(:order_klass){ double('order_klass', new: order) }
-  subject { Till.new(order_klass) }
+  let(:expected_menu){ JSON.parse(File.read('spec/testmenu.json')) }
+  subject { Till.new(order_klass, 'spec/testmenu.json') }
 
   context '#initialize' do
     it 'starts an order' do
@@ -11,7 +12,6 @@ describe Till do
     end
 
     it 'reads in the menu from .json file' do
-      expected_menu = JSON.parse(File.read('hipstercoffee.json'))
       expect(subject.menu).to eq(expected_menu)
     end
   end
