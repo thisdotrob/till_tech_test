@@ -6,22 +6,22 @@ describe Receipt do
   let(:tax_rate){ 0.0864 }
   subject { Receipt.new(order, prices, tax_rate) }
 
-  context 'initialize' do
+  context '#initialize' do
     it 'has an order' do
-      expect(subject.order).to eq(order)
+      expect(subject.instance_variable_get(:@order)).to eq(order)
     end
 
     it 'has a list of prices' do
-      expect(subject.prices).to eq(prices)
+      expect(subject.instance_variable_get(:@prices)).to eq(prices)
     end
 
     it 'has a tax rate' do
-      expect(subject.tax_rate).to eq(tax_rate)
+      expect(subject.instance_variable_get(:@tax_rate)).to eq(tax_rate)
     end
 
   end
 
-  context '#receipt' do
+  context '#getJSON' do
     it 'returns a json string receipt in the correct format' do
       expected_receipt = {
         name: 'Basil',
